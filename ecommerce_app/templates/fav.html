@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+This is your Cart page. Proceed to review your items and place the order
+{% endblock %}
+{% block title %}
+      Cart -Shopie Company pvt ltd
+{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'js/fav.js' %}">
+<section class="bg-light py-4 my-5" style="min-height:600px;">
+      {% if not fav %}
+    <div>
+        <div class="text-center">
+            <br>
+            <h1 style="color: #5C5D39" class="text-center my_titile">
+                Your wishlist  is empty
+            </h1>
+            <br>
+            <p style="color: #a4893d;" class="text-center">
+                Please Click <a href="{% url 'ecommerce_app:allProdCat' %}">&nbsp; Here &nbsp;</a> add product in wishlist.
+            </p>
+        </div>
+    </div>
+    {% else %}
+
+    <div>
+        <div class="text-center">
+            <br>
+            <h1 style="color: #5C5D39" class="text-center my_titile">
+                Your wishlist products
+            </h1>
+            <br>
+        </div>
+        <br>
+        <div class="row mx-auto">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <table class="table my_custom_table">
+                    <thead class="my_custom_thead">
+                    <tr>
+                        <th colspan="5">
+                            products
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+          {% for fa in fav %}
+                    <tr>
+                        <td class="text-center">
+                            <img src="{{fa.product.imge.url}}" alt="" style="width:160px; height:130px;" class="float-left rounded custom_image"></a>
+
+                        <td style="color: #5C5D39" class="text-center">
+                            <h6 class="text-center">{{fa.product.name}}</h6><br>
+
+                            <h6 class="text-center" style="color:#BD1E51">Price : {{fa.product.price}}</h6>
+
+
+                        </td>
+                        <td  class="text-lef">
+
+                             <a href="{% url 'ecommerce_app:remove_fav' fa.id %}"  onclick="return confirm('Are you sure? to Remove')"  class="btn btn-secondary ">remove</a>
+                            <br>
+
+                        </td>
+
+
+        {% endfor %}
+   {% endif %}
+
+</section>
+
+
+{% endblock %}

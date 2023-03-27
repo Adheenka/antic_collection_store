@@ -1,0 +1,80 @@
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top scrolling-navbar white ripe-malinka-gradient" style="margin-bottom: 2%">
+      <div class="container">
+        <a style="color: #a4893d;" class="navbar-brand font-weight-bold white-text" href=>H E L BAk!=</a>
+      <form class="d-flex" action="{% url 'search_App:searchResult' %}" method="get">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" name="q" aria-label="Search">
+        <button class="btn pink-gradient btn-rounded btn-sm font-weight-bold" type="submit" data-offset="90"><i class="fa fa-search"></i></button>
+      </form>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"> <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="list-unstyled navbar-nav mr-auto">
+                <li class="nav-item active ml-3">
+                    <a style="color: #a4893d;" class="nav-link white-text" href="{% url 'ecommerce_app:allProdCat' %}"><i class="fa fa-home"></i>Home
+                        <span class="sr-only"></span>
+                    </a>
+                </li>
+
+              <li class="nav-item ml-3 dropdown {% if 'ecommerce_app' in request.path %} active {% endif %}">
+          <a style="color: #a4893d;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Shop
+        </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a style="color: #a4893d;" class="dropdown-item" href="{% url 'ecommerce_app:allProdCat' %}">All Products</a></li>
+            {% for cat in links %}
+            <li><a style="color: #a4893d;"  class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+                &nbsp;&nbsp;
+        {% if item_count > 0 %}
+        <li class="nav-item">
+          <a style="color: #a4893d;" class="nav-link" href="{% url 'cart_app:cart_detail' %}"><i class="fa fa-shopping-cart">({{item_count}})</i></a>
+        </li>
+        {% endif %}
+       <a style="color: #a4893d;" class="nav-link" href="{% url 'ecommerce_app:favviewpage' %}"><i class="fa fa-heart"></i> Favourite</a>
+            </ul>
+            <!-- Social Icon  -->
+            <ul class="navbar-nav nav-flex-icons">
+
+                <li class="nav-item" >
+                    <a class="nav-link yellow-text h4" href="">
+
+                    </a>
+                </li>
+
+
+                <li class="nav-item ml-3">
+                  {% if request.user.is_authenticated %}
+                    <a style="color:#DCAE1D;" ><i class="fa fa-user"></i>{{request.user}}</a>
+                    <a class="btn pink-gradient btn-rounded btn-sm font-weight-bold" onclick="return confirm('Are you sure? logout!!!')" href="{% url 'ecommerce_app:logout' %}" data-offset="90">Logout</a>
+                  {% else %}
+                    <a class="btn peach-gradient btn-rounded btn-sm font-weight-bold" href="{% url 'ecommerce_app:login' %}" data-offset="90">Sign Up</a>
+                    <a class="btn peach-gradient btn-rounded btn-sm font-weight-bold" href="{% url 'ecommerce_app:register' %}" data-offset="90">Retister</a>
+                  {% endif %}
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link">
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+

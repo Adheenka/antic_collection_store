@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+This is your Cart page. Proceed to review your items and place the order
+{% endblock %}
+
+{% block content %}
+div class="content-section">
+        <form action="" method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Sign In</legend>
+                {{ form|crispy }}
+            </fieldset>
+
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Login In</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">Do you need an account? <a href="{% url 'register' %}">Register Now</a></small>
+        </div>
+    </div>
+{% endblock content %}
